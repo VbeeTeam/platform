@@ -28,5 +28,10 @@ var result = function (a, b) {
 //模块导出第一种方法
 // exports.sum1 = sum;
 // exports.result1 = result;
-//模块导出的第二种方法 只适合导出一个方法
+//模块导出的第二种方法
 module.exports = sum;
+// 多成员
+// module.exports = {
+//     a: a,
+//     b: b
+// }
