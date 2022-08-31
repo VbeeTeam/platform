@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            ID:<input type="text" v-model="idIpt"/>
+            Name:<input type="text" v-model="nameIpt"/>
+            <button @click="add">添加</button>
+        </div>
+        <ul>
+            <!-- key属性是v-for循环时配合使用的属性，作用是保证数据的唯一性、准确性 -->
+            <!-- key属性也是通过v-bind去绑定的 -->
+            <li v-for="item in list" :key="item.id">
+                <input type="checkbox" />
+                Id:{{ item.id }}
+                Name:{{ item.name }}
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
+<script src="./js/vue-2.4.0.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data:{
+            list: [
+                {
+                    id: 1,
+                    name: "张三"
+                },
+                {
+                    id: 2,
+                    name: "李四"
+                }
+            ],
+            idIpt: "",
+            nameIpt: ""
+        },
+        methods:{
+            add() {
+                console.log("ID:", this.idIpt);
+                console.log("Name:", this.nameIpt);
+                // push向数组末尾添加元素
+                // this.list.push({id: this.idIpt, name: this.nameIpt});
+                // unshift向数组前添加元素
+                this.list.unshift({id: this.idIpt, name: this.nameIpt});
+            }
+        }
+    })
+</script>

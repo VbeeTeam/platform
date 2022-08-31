@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="num1">
+        <select v-model="opt">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="text" v-model="num2">
+        <input type="button" value="=" @click="clickResult">
+        <input type="text" v-model="sum">
+    </div>
+</body>
+
+</html>
+<script src="./js/vue-2.4.0.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            num1: null,
+            opt: "+",
+            num2: null,
+            sum: null
+        },
+        methods: {
+            clickResult() {
+                // if(this.opt == "+"){
+                //     this.sum = Number(this.num1) + Number(this.num2)
+                // }else if(this.opt == "-"){
+                //     this.sum = Number(this.num1) - Number(this.num2)
+                // }else if(this.opt == "*"){
+                //     this.sum = Number(this.num1) * Number(this.num2)
+                // }else if(this.opt == "/"){
+                //     this.sum = Number(this.num1) / Number(this.num2)
+                // }
+                // switch (this.opt) {
+                //     case '+':
+                //         this.sum = Number(this.num1) + Number(this.num2)
+                //         break;
+                //     case '-':
+                //         this.sum = Number(this.num1) - Number(this.num2)
+                //         break;
+                //     case '*':
+                //         this.sum = Number(this.num1) * Number(this.num2)
+                //         break;
+                //     case '/':
+                //         this.sum = Number(this.num1) / Number(this.num2)
+                //         break;
+                // }
+                // 字符串拼接做运算 eval() 
+                this.sum = eval(this.num1 + this.opt + this.num2)
+            }
+        }
+    })
+</script>

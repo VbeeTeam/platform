@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 视图层View -->
+    <div id="app">
+        <h3>时间：{{ time | formatTime}}</h3>
+        <p>xxxx-yy-dd hh:mm:ss</p>
+    </div>
+</body>
+</html>
+<!-- 1.通过script标签的src属性导入vue的包 -->
+<script src="./js/vue-2.4.0.js"></script>
+<script>
+    // new Vue =》创建了一个vue实例=》viewmodel
+    var vm = new Vue({
+        // 绑定视图的id
+        el: "#app",
+        // 数据层的model
+        data: {
+            time: new Date()
+        },
+        filters: {
+            formatTime(time){
+                console.log(time)
+                var dt = new Date(time);
+                console.log(dt)
+                // 获取年、月、日、时、分、秒
+                var y = dt.getFullYear();
+                console.log(y)
+                var m = (dt.getMonth() + 1).toString().padStart(2, '0');
+                console.log(m)
+                var d = dt.getDate().toString().padStart(2, '0');
+                console.log(d)
+                var hh = dt.getHours().toString().padStart(2, '0');
+                console.log(hh)
+                var mm = dt.getMinutes().toString().padStart(2, '0');
+                console.log(mm)
+                var ss = dt.getSeconds().toString().padStart(2, '0');
+                console.log(ss)
+                // xxxx-yy-dd hh:mm:ss
+                // return y + "-" + m + '-' + d + " " + hh + ":" + mm + ":" + ss
+                return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+            }
+        }
+    })
+   
+</script>

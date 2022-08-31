@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 声明式渲染数据 -->
+        <h3>{{ msg }}</h3>
+        <!-- v-text内置指令渲染文本 -->
+        <h4 v-text="msg"></h4>
+        <!-- v-html内置指令渲染标签文本 -->
+        <h5 v-html="msg"></h5>
+        <div v-html="tag"></div>
+        <div v-text="tag"></div>
+        <!-- v-text可以渲染文本 v-html可以渲染文本也可使渲染标签文本 -->
+        <!-- v-text会替换标签里的内容 -->
+        <div v-text="str">我是一个div -- {{ msg }}</div>
+        <!-- {{}} 声明式渲染不会替换标签里的内容 -->
+        <div>我是一个div -- {{msg}}</div>
+    </div>
+</body>
+</html>
+<script src="./js/vue-2.4.0.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data:{
+            msg: "您好！vue",
+            tag: "<p>我是段落,<span>我是span行内元素</span></p>",
+            str: "我是一个字符串"
+        }
+    })
+    // 回顾js渲染文本=》innerText\innerHTML
+</script>

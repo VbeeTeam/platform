@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width: 400px;
+            margin: 0 auto;
+        }
+        .navList{
+            width: 300px;
+            border: 1px solid #ccc;
+            list-style: none;
+            display: none;
+        }
+        .navList li{
+            overflow: hidden;
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+        .navList img{
+            float: left;
+            margin-right: 20px;
+        }
+        .navList h4{
+            float: left;
+        }
+        .block{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box">
+            <a href="#" @mouseover="hoverHref" @mouseout="outHref">手机京东</a>
+            <!-- <ul class="navList" :class="flag ? 'block' : ''"> -->
+            <ul class="navList" :style="{'display': flag ? 'block' : 'none'}">
+                <li v-for="item in list" :key="item.id">
+                    <img :src="item.imgUrl" alt="">
+                    <h4>{{ item.title }}</h4>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+<script src="./js/vue-2.4.0.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            list: [
+                {
+                    id: 1,
+                    imgUrl: "https://img12.360buyimg.com/img/jfs/t1/67481/15/565/28110/5cec9234E71c47244/dc4cf353fd96922e.png.webp",
+                    title: "手机京东"
+                },
+                {
+                    id: 2,
+                    imgUrl: "https://img12.360buyimg.com/img/jfs/t1/67481/15/565/28110/5cec9234E71c47244/dc4cf353fd96922e.png.webp",
+                    title: "关注京东"
+                },
+                {
+                    id: 3,
+                    imgUrl: "https://img12.360buyimg.com/img/jfs/t1/67481/15/565/28110/5cec9234E71c47244/dc4cf353fd96922e.png.webp",
+                    title: "京东金融"
+                }
+            ],
+            flag: false
+        },
+        methods: {
+            hoverHref(){
+                this.flag = true
+            },
+            outHref(){
+                this.flag = false
+            }
+        }
+    })
+
+</script>

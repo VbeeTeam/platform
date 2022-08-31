@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-show 内置指令 一般用于做显示隐藏 -->
+        <h1 v-show="showBoolean">我是一个大大的H1</h1>
+        <!-- <button @click="showHide">显示/隐藏</button> -->
+        <!-- 单语句执行可以直接写在事件中 -->
+        <button @click="showBoolean = !showBoolean">显示/隐藏</button>
+        <!-- v-show 实现原理就是给元素添加内联dispaly：none\block样式进行显示隐藏 -->
+
+        <!-- v-if 内置指令 也可用于显示隐藏 -->
+        <!-- 多条件判断 v-if、 v-else-if、 v-else -->
+        <ul>
+            <li>
+               <span v-if="num == 1">张三</span> 
+               <span v-else-if="num == 2">李四</span>
+               <span v-else-if="num == 3">李六</span>
+               <!-- <span v-else>王五</span> -->
+            </li>
+        </ul>
+        <button @click="sh">显示隐藏</button>
+        <!-- v-if显示隐藏 实现原理是销毁DOM元素、创建DOM元素 -->
+
+        <!-- v-show一般用于频繁切换，因为只是样式的显示隐藏，只有初始渲染性能消耗 -->
+        <!-- v-if一般用于多条件不频繁切换，因为创建、销毁元素消耗元素创建性能 -->
+    </div>
+</body>
+</html>
+<script src="./js/vue-2.4.0.js"></script>
+<script>
+
+    var vm = new Vue({
+        el: "#app",
+        data:{
+            showBoolean: true,
+            num: 3
+        },
+        methods: {
+            showHide() {
+                // if(this.showBoolean){
+                //     this.showBoolean = false
+                // }else{
+                //     this.showBoolean = true
+                // }
+                this.showBoolean = !this.showBoolean
+            },
+            sh(){
+                if(this.num > 3){
+                    this.num = 1
+                }else{
+                    this.num = 4
+                }
+            }
+        }
+    })
+
+</script>

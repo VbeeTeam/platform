@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrap{
+            width: 200px;
+            height: 200px;
+            background-color: gray;
+        }
+        .content{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 默认点击内层盒子会触发外层盒子=》冒泡行为：从里往外冒 -->
+        <div class="wrap" @click="clickWrap">
+            <!-- .stop是阻止冒泡行为的事件修饰符 -->
+            <div class="content" @click.stop="clickContent"></div>
+        </div>
+        <!-- .prevent阻止默认行为 -->
+        <a href="https://www.baidu.com" @click.prevent="clickHref">百度</a>
+        <!-- .capture添加捕获行为，将默认的冒泡行为改为了捕获行为 从外往里捕获-->
+        <div class="wrap" @click.capture="clickFather">
+            <div class="content" @click="clickSon"></div>
+        </div>
+        <br />
+        <!-- .self阻止自身事件的回调 类似于阻止冒泡 -->
+        <div class="wrap" @click.self="clickFather">
+            <div class="content" @click="clickSon"></div>
+        </div>
+        <!-- .once 让事件只触发一次 -->
+        <button @click.once="clickBtn">点击</button>
+    </div>
+</body>
+</html>
+<script src="./js/vue-2.4.0.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {},
+        methods: {
+            // 点击外层wrap盒子
+            clickWrap(){
+                console.log("点击了wrap")
+            },
+            // 点击内层content盒子
+            clickContent(){
+                console.log("点击了content")
+            },
+            clickHref(){
+                console.log("是否阻止了")
+            },
+            clickFather(){
+                console.log("点击了父盒子")
+            },
+            clickSon(){
+                console.log("点击了子盒子")
+            },
+            clickBtn(){
+                console.log("我被点击了")
+            }
+        }
+    })
+
+</script>

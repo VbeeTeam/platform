@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h3>{{ msg }}</h3>
+        <button @click="start">浪起来</button>
+        <button @click="stop">低调</button>
+    </div>
+</body>
+
+</html>
+<script src="./js/vue-2.4.0.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            msg: "猥琐发育别浪~~!",
+            myTimer: null
+        },
+        methods: {
+            // 点击浪起来 开始字幕滚动
+            start() {
+                // 4.用定时器实现自动截取拼接的过程
+                var that = this
+                if (this.myTimer == null) {
+                    this.myTimer = setInterval(function () {
+                        // 实现原理 截取字符串 拼接到msg末尾
+                        // this就是vue的实例
+                        console.log(that)
+                        console.log(that.msg)
+                        // 1.截取字符串的第一个字符
+                        var str1 = that.msg.substring(0, 1)
+                        console.log(str1)
+                        // 2.截取出第一个字符后面的字符串
+                        var str2 = that.msg.substring(1)
+                        console.log(str2)
+                        // 3.拼接字符串
+                        that.msg = str2 + str1;
+                        console.log(that.msg)
+                    }, 500)
+                }
+            },
+            // 点击低调 停止字幕滚动
+            stop() {
+                // 停止定时器
+                clearInterval(this.myTimer)
+                // 将存储定时器的变量清空
+                this.myTimer = null;
+            }
+        }
+    })
+</script>

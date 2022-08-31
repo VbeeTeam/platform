@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-bind内置指令用于动态属性渲染  -->
+        <h3 v-bind:title="title">三级标题</h3>
+        <!-- 简写属性绑定 : -->
+        <h4 :title="title">四级标题</h4>
+        <!-- 拼接动态属性数据 -->
+        <h5 :title="title + '我是h5'">五级标题</h5>
+        <!-- 动态渲染图片数据 -->
+        <img :src="imgUrl" alt="">
+
+        <!-- v-on内置指令用于事件绑定 -->
+        <button v-on:click="test1()">点击</button>
+        <!-- 简写 @ -->
+        <button @mouseover="test2">滑过</button>
+    </div>
+</body>
+</html>
+<script src="./js/vue-2.4.0.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            title: "我是标签的title",
+            imgUrl: "./img/1.webp"
+        },
+        methods: { //用于写函数方法的属性
+            test1: function(){
+                alert("被点击了")
+            },
+            // 简写函数方法
+            test2() {
+                console.log("我被鼠标滑过了")
+            }
+        }
+    })
+</script>

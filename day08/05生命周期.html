@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 视图层View -->
+    <div id="app">
+        <h3 id="mesId">{{ message }}</h3>
+        <button @click="message = '您好！数据更新了'">修改数据</button>
+    </div>
+</body>
+</html>
+<!-- 1.通过script标签的src属性导入vue的包 -->
+<script src="./js/vue-2.4.0.js"></script>
+<script>
+    // new Vue =》创建了一个vue实例=》viewmodel
+    var vm = new Vue({
+        // 绑定视图的id
+        el: "#app",
+        // 数据层的model
+        data: {
+            message: "Hello Vue!"
+        },
+        methods: {
+            show(){
+                alert("您好！VUE")
+            }
+        },
+        // 初始化事件、数据，实例还没有完全被创建出来
+        beforeCreate(){
+            // data里的数据和methods里的方法还未初始化
+            // console.log("beforeCreate:", this.message)
+            // 调用methods属性里的方法
+            // this.show();
+        },
+        // 事件、数据已经初始化完成，data、methdos属性已经初始化完成
+        // 一般在这里做前后端数据交互 ajax请求
+        created(){
+            // console.log("created:", this.message)
+            // 调用methods属性里的方法
+            // this.show();
+        },
+        // 初始化渲染模板,dom元素数据还未渲染完成
+        beforeMount(){
+            // var dom = document.getElementById("mesId");
+            // console.log("beforeMount:", dom)
+        },
+        // 模板数据渲染已经完成
+        // 一般用于dom元素操作与监听、启动定时器
+        mounted(){
+            // var dom = document.getElementById("mesId");
+            // console.log("mounted:", dom)
+        },
+        // 触发数据更新才能执行这两个周期
+        // 模板更新数据之前
+        beforeUpdate(){
+            var dom = document.getElementById("mesId").innerText;
+            console.log("beforeUpdate:", dom, this.message)
+        },
+        // 模板更新数据完成
+        updated(){
+            var dom = document.getElementById("mesId").innerText;
+            console.log("updated:", dom, this.message)
+        },
+        // 组件销毁之前
+        beforeDestroy(){
+
+        },
+        // 组件销毁之后
+        destroyed(){
+
+        }
+    })
+</script>

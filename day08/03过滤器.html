@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 视图层View1 -->
+    <div id="app">
+        <h3>{{ msg | msgFormat }}</h3>
+        <!-- 在一个需要过滤的元素上绑定多个过滤器 -->
+        <p>{{ msg2 | strFormat | strFormat2 }}</p>
+        <h4>{{ msg3 | formatMsg3 }}</h4>
+    </div>
+    <!-- 视图层View2 -->
+    <div id="wrap">
+        <h3>wrap：{{ msg3 | allFormat }}</h3>
+    </div>
+</body>
+</html>
+<!-- 1.通过script标签的src属性导入vue的包 -->
+<script src="./js/vue-2.4.0.js"></script>
+<script>
+    // 全局过滤器
+    // Vue.filter("过滤器的函数名称", function(){})
+    // 在不改变数据data里的msg的条件下给学生前加一个字符串 （三好）
+    Vue.filter('msgFormat', function(msg){
+        // 字符串替换 replace(旧值,新值)
+       return msg.replace("学生", "三好学生")
+    })
+    Vue.filter('strFormat', function(str){
+        return str.replace(/单纯/g, "成熟")
+    })
+    Vue.filter('strFormat2', function(str){
+        return str.replace("聪明","漂亮")
+    })
+    Vue.filter("allFormat", function(msg){
+        return msg.replace("好", "")
+    })
+    var vm = new Vue({
+        // 绑定视图的id
+        el: "#app",
+        // 数据层的model
+        data: {
+            msg: "我是一名学生",
+            msg2: "曾经，我也是一个单纯的少年,单纯的我问？谁是这个世界最聪明的人啊?",
+            msg3: "我是一个好人"
+        },
+        // 私有过滤器
+        filters: {
+            formatMsg3(msg){
+               return msg.replace("好", "")
+            }
+        }
+    })
+    var vm2 = new Vue({
+        el: "#wrap",
+        data:{
+            msg3: "我是一个好青年"
+        }
+    })
+    // 全局过滤器可以在任何一个Vue实例中调用
+    // 私有过滤器只能在当前Vue实例中调用
+</script>

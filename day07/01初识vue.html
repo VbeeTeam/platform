@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 视图层View -->
+    <div id="app">{{ message }}</div>
+</body>
+</html>
+<!-- 1.通过script标签的src属性导入vue的包 -->
+<script src="./js/vue-2.4.0.js"></script>
+<script>
+    // new Vue =》创建了一个vue实例=》viewmodel
+    var vm = new Vue({
+        // 绑定视图的id
+        el: "#app",
+        // 数据层的model
+        data: {
+            message: "Hello Vue!"
+        }
+    })
+    // 回顾js展示数据
+    // 1.获取dom元素 
+    // 2.定义数据
+    // 3.将数据赋值给dom元素
+</script>

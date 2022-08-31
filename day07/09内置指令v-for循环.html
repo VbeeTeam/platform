@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 视图层View -->
+    <div id="app">
+        <ul>
+            <!-- item： 遍历的每一个元素 index：索引（下标） list：遍历的数组 -->
+            <li v-for="(item,index) in list">
+                {{ item }} -- {{ index }}
+            </li>
+        </ul>
+        <!-- 数组对象遍历 -->
+        <ol>
+            <li v-for="(item, index) in list2">
+                姓名：{{ item.name }}
+                索引 -- {{ index }} --
+                性别：{{ item.sex }}
+            </li>
+        </ol>
+        <!-- 遍历对象 item 值 key 键 -->
+        <ul>
+            <li v-for="(item, key) in obj">
+                <!-- 键值对 -->
+                {{ item }} -- {{ key }}
+            </li>
+        </ul>
+        <!-- 遍历数字 item 遍历的每一个数字 -->
+        <p v-for="item in 10">{{ item }}</p>
+        <!-- 复杂数组循环渲染 -->
+        <!-- 外层数组循环 -->
+        <div v-for="(item,index) in list3">
+            <h3>图书分类{{index + 1}}：{{ item.title }}</h3>
+            <ul>
+                <!-- 内层数组循环 -->
+                <li v-for="(item2, index2) in item.book">
+                    书名{{index2 + 1}}：{{ item2.name }}
+                    作者：{{ item2.author }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
+<!-- 1.通过script标签的src属性导入vue的包 -->
+<script src="./js/vue-2.4.0.js"></script>
+<script>
+    // new Vue =》创建了一个vue实例=》viewmodel
+    var vm = new Vue({
+        // 绑定视图的id
+        el: "#app",
+        // 数据层的model
+        data: {
+            list: ["苹果", "香蕉", "葡萄", "火龙果", "荔枝", "西瓜"],
+            list2: [{
+                    name: "刘德华",
+                    sex: "男"
+                },
+                {
+                    name: "周杰伦",
+                    sex: "男"
+                },
+                {
+                    name: "范冰冰",
+                    sex: "女"
+                },
+                {
+                    name: "迪丽热巴",
+                    sex: "女"
+                }
+            ],
+            obj: {
+                name: "尤雨溪",
+                sex: "男",
+                age: 28
+            },
+            list3: [
+                {
+                    title: "玄幻",
+                    book: [
+                        {
+                            name: "《神墓》",
+                            author: "张三"
+                        },
+                        {
+                            name: "《独步逍遥》",
+                            author: "李四"
+                        }
+                    ]
+                },
+                {
+                    title: "文学",
+                    book: [
+                        {
+                            name: "《西游记》",
+                            author: "吴承恩"
+                        },
+                        {
+                            name: "《红楼梦》",
+                            author: "曹雪芹"
+                        }
+                    ]
+                },
+                {
+                    title: "爱情",
+                    book: [
+                        {
+                            name: "《简爱》",
+                            author: "王五"
+                        },
+                        {
+                            name: "《理智与情感》",
+                            author: "赵六"
+                        }
+                    ]
+                },
+                {
+                    title: "犯罪",
+                    book: [
+                        {
+                            name: "《坏蛋是怎样练成的》",
+                            author: "谢文东"
+                        },
+                        {
+                            name: "《犯罪2》",
+                            author: "某某"
+                        }
+                    ]
+                }
+            ]
+
+        }
+    })
+</script>

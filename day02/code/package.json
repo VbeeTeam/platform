@@ -1,0 +1,16 @@
+{
+  "name": "code",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node 02path.js"
+  },
+  "dependencies": {
+    "es-checker": "^1.4.2",
+    "jquery": "3.6.0"
+  },
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}

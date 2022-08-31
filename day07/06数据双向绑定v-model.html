@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-model数据双向绑定只能应用在表单元素上，不能应用在非表单元素 -->
+        <input type="text" v-model="msg" @input="getMsg"/>
+        <p>段落：{{ msg }}</p>
+        <!-- <button @click="getMsg">获取输入的内容</button> -->
+        <!-- <div v-model="msg"></div> -->
+        <select v-model="selectNum">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <div>{{ selectNum }}</div>
+    </div>
+</body>
+</html>
+<script src="./js/vue-2.4.0.js"></script>
+<script>
+
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            msg: "",
+            selectNum: "2"
+        },
+        methods:{
+            getMsg(){
+                console.log(this.msg)
+            }
+        }
+    })
+
+</script>
