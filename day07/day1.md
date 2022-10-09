@@ -26,7 +26,7 @@
 
  + 增强自身的能力
  + 人无我有，人有我优
- + 
+ + 平时不上课的课余时间，都在干吗？
 ## 框架和库的区别
 
 
@@ -310,125 +310,11 @@
 
 当 Vue.js 用 v-for 正在更新已渲染过的元素列表时，它默认用 “**就地复用**” 策略。如果数据项的顺序被改变，Vue将**不是移动 DOM 元素来匹配数据项的顺序**， 而是**简单复用此处每个元素**，并且确保它在特定索引下显示已被渲染过的每个元素。
 
-
-
 为了给 Vue 一个提示，**以便它能跟踪每个节点的身份，从而重用和重新排序现有元素**，你需要为每项提供一个唯一 key 属性。
-
-
-
-
-
-
 
 ## Vue指令之`v-if`和`v-show`
 
-
-
-
-
-
-
 > 一般来说，v-if 有更高的切换消耗而 v-show 有更高的初始渲染消耗。因此，如果需要频繁切换 v-show 较好，如果在运行时条件不大可能改变 v-if 较好。
-
-
-
-
-
-
-
-## 品牌管理案例
-
-
-
-### 添加新品牌
-
-
-
-### 删除品牌
-
-
-
-### 根据条件筛选品牌
-
-1. 1.x 版本中的filterBy指令，在2.x中已经被废除：
-
-[filterBy - 指令](https://v1-cn.vuejs.org/api/#filterBy)
-
-```
-
-<tr v-for="item in list | filterBy searchName in 'name'">
-
-  <td>{{item.id}}</td>
-
-  <td>{{item.name}}</td>
-
-  <td>{{item.ctime}}</td>
-
-  <td>
-
-    <a href="#" @click.prevent="del(item.id)">删除</a>
-
-  </td>
-
-</tr>
-
-```
-
-2. 在2.x版本中[手动实现筛选的方式](https://cn.vuejs.org/v2/guide/list.html#显示过滤-排序结果)：
-
-+ 筛选框绑定到 VM 实例中的 `searchName` 属性：
-
-```
-
-<hr> 输入筛选名称：
-
-<input type="text" v-model="searchName">
-
-```
-
-+ 在使用 `v-for` 指令循环每一行数据的时候，不再直接 `item in list`，而是 `in` 一个 过滤的methods 方法，同时，把过滤条件`searchName`传递进去：
-
-```
-
-<tbody>
-
-      <tr v-for="item in search(searchName)">
-
-        <td>{{item.id}}</td>
-
-        <td>{{item.name}}</td>
-
-        <td>{{item.ctime}}</td>
-
-        <td>
-
-          <a href="#" @click.prevent="del(item.id)">删除</a>
-
-        </td>
-
-      </tr>
-
-    </tbody>
-
-```
-
-+ `search` 过滤方法中，使用 数组的 `filter` 方法进行过滤：
-
-```
-
-search(name) {
-
-  return this.list.filter(x => {
-
-    return x.name.indexOf(name) != -1;
-
-  });
-
-}
-
-```
-
-
 
 ## 过滤器
 
@@ -494,13 +380,7 @@ filters: { // 私有局部过滤器，只能在 当前 VM 对象所控制的 Vie
 
 ```
 
-
-
 > 使用ES6中的字符串新方法 String.prototype.padStart(maxLength, fillString='') 或 String.prototype.padEnd(maxLength, fillString='')来填充字符串；
-
-
-
-
 
 ### 全局过滤器
 
@@ -554,95 +434,156 @@ Vue.filter('dataFormat', function (input, pattern = '') {
 
 > 注意：当有局部和全局两个名称相同的过滤器时候，会以就近原则进行调用，即：局部过滤器优先于全局过滤器被调用！
 
+## `watch`属性的使用
 
+考虑一个问题：想要实现 `名` 和 `姓` 两个文本框的内容改变，则全名的文本框中的值也跟着改变；（用以前的知识如何实现？？？）
 
-## 键盘修饰符以及自定义键盘修饰符
-
-### 1.x中自定义键盘修饰符【了解即可】
-
-```
-
-Vue.directive('on').keyCodes.f2 = 113;
+1. 监听`data`中属性的改变：
 
 ```
+<div id="app">
+    <input type="text" v-model="firstName"> +
+    <input type="text" v-model="lastName"> =
+    <span>{{fullName}}</span>
+  </div>
 
-### [2.x中自定义键盘修饰符](https://cn.vuejs.org/v2/guide/events.html#键值修饰符)
-
-1. 通过`Vue.config.keyCodes.名称 = 按键值`来自定义案件修饰符的别名：
-
-```
-
-Vue.config.keyCodes.f2 = 113;
-
-```
-
-2. 使用自定义的按键修饰符：
-
-```
-
-<input type="text" v-model="name" @keyup.f2="add">
-
-```
-
-
-
-## [自定义指令](https://cn.vuejs.org/v2/guide/custom-directive.html)
-
-1. 自定义全局和局部的 自定义指令：
-
-```
-
-    // 自定义全局指令 v-focus，为绑定的元素自动获取焦点：
-
-    Vue.directive('focus', {
-
-      inserted: function (el) { // inserted 表示被绑定元素插入父节点时调用
-
-        el.focus();
-
+  <script>
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        firstName: 'jack',
+        lastName: 'chen',
+        fullName: 'jack - chen'
+      },
+      methods: {},
+      watch: {
+        'firstName': function (newVal, oldVal) { // 第一个参数是新数据，第二个参数是旧数据
+          this.fullName = newVal + ' - ' + this.lastName;
+        },
+        'lastName': function (newVal, oldVal) {
+          this.fullName = this.firstName + ' - ' + newVal;
+        }
       }
+    });
+  </script>
+```
 
+2. 监听路由对象的改变：
+
+```
+<div id="app">
+    <router-link to="/login">登录</router-link>
+    <router-link to="/register">注册</router-link>
+
+    <router-view></router-view>
+  </div>
+
+  <script>
+    var login = Vue.extend({
+      template: '<h1>登录组件</h1>'
     });
 
+    var register = Vue.extend({
+      template: '<h1>注册组件</h1>'
+    });
 
+    var router = new VueRouter({
+      routes: [
+        { path: "/login", component: login },
+        { path: "/register", component: register }
+      ]
+    });
 
-    // 自定义局部指令 v-color 和 v-font-weight，为绑定的元素设置指定的字体颜色 和 字体粗细：
-
-      directives: {
-
-        color: { // 为元素设置指定的字体颜色
-
-          bind(el, binding) {
-
-            el.style.color = binding.value;
-
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {},
+      router: router,
+      watch: {
+        '$route': function (newVal, oldVal) {
+          if (newVal.path === '/login') {
+            console.log('这是登录组件');
           }
-
-        },
-
-        'font-weight': function (el, binding2) { // 自定义指令的简写形式，等同于定义了 bind 和 update 两个钩子函数
-
-          el.style.fontWeight = binding2.value;
-
         }
-
       }
-
+    });
+  </script>
 ```
 
-2. 自定义指令的使用方式：
+## `computed`计算属性的使用
+
+1. 默认只有`getter`的计算属性：
 
 ```
+<div id="app">
+    <input type="text" v-model="firstName"> +
+    <input type="text" v-model="lastName"> =
+    <span>{{fullName}}</span>
+  </div>
 
-<input type="text" v-model="searchName" v-focus v-color="'red'" v-font-weight="900">
-
+  <script>
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        firstName: 'jack',
+        lastName: 'chen'
+      },
+      methods: {},
+      computed: { // 计算属性； 特点：当计算属性中所以来的任何一个 data 属性改变之后，都会重新触发 本计算属性 的重新计算，从而更新 fullName 的值
+        fullName() {
+          return this.firstName + ' - ' + this.lastName;
+        }
+      }
+    });
+  </script>
 ```
 
+2. 定义有`getter`和`setter`的计算属性：
 
+```
+<div id="app">
+    <input type="text" v-model="firstName">
+    <input type="text" v-model="lastName">
+    <!-- 点击按钮重新为 计算属性 fullName 赋值 -->
+    <input type="button" value="修改fullName" @click="changeName">
 
-## 相关文章
-1. [vue.js 1.x 文档](https://v1-cn.vuejs.org/)
-2. [vue.js 2.x 文档](https://cn.vuejs.org/)
-3. [String.prototype.padStart(maxLength, fillString)](http://www.css88.com/archives/7715)
-4. [js 里面的键盘事件对应的键码](http://www.cnblogs.com/wuhua1/p/6686237.html)
-5. [Vue.js双向绑定的实现原理](http://www.cnblogs.com/kidney/p/6052935.html)
+    <span>{{fullName}}</span>
+  </div>
+
+  <script>
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        firstName: 'jack',
+        lastName: 'chen'
+      },
+      methods: {
+        changeName() {
+          this.fullName = 'TOM - chen2';
+        }
+      },
+      computed: {
+        fullName: {
+          get: function () {
+            return this.firstName + ' - ' + this.lastName;
+          },
+          set: function (newVal) {
+            var parts = newVal.split(' - ');
+            this.firstName = parts[0];
+            this.lastName = parts[1];
+          }
+        }
+      }
+    });
+  </script>
+```
+
+## `watch`、`computed`和`methods`之间的对比
+
+1. `computed`属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
+2. `methods`方法表示一个具体的操作，主要书写业务逻辑；
+3. `watch`一个对象，键是需要观察的表达式，值是对应回调函数。主要用来监听某些特定数据的变化，从而进行某些具体的业务逻辑操作；可以看作是`computed`和`methods`的结合体；
